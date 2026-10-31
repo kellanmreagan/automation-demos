@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom Order Request — Granite Bakery (Demo)</title>
+  <meta name="description" content="Demo mockup of an automatic custom-order confirmation for Granite Bakery, a family owned retail bakery in Salt Lake City since 1983." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <style>
+    @font-face {
+      font-family: "GeoSans";
+      src: url("fonts/GeosansLight.otf") format("opentype");
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --sage: #7F9892;
+      --sage-dark: #5f7771;
+      --sage-deeper: #4a605b;
+      --taupe: #a29890;
+      --blush: #EDB9A3;
+      --blush-deep: #d49a82;
+      --text: #4a4a4a;
+      --text-dark: #333333;
+      --cream: #f4efe8;
+      --paper: #fffdf9;
+      --line: #e2d8ce;
+      --banner: #3f514c;
+      --warn-bg: #f8efe4;
+      --warn-border: #d4b48a;
+      --ok-bg: #e7f0ee;
+      --shadow: 0 10px 30px rgba(63, 81, 76, 0.08);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    section, [id] { scroll-margin-top: 72px; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: clip;
+      max-width: 100%;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+
+    body {
+      font-family: "GeoSans", "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.5;
+      font-size: 18px;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { color: var(--sage-deeper); }
+    a:hover { color: var(--sage-dark); }
+
+    :focus-visible {
+      outline: 2px solid var(--sage-dark);
+      outline-offset: 2px;
+    }
+
+    .demo-banner {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--banner);
+      color: #f6f1ea;
+      text-align: center;
+      font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      padding: 0.55rem 1rem;
+      line-height: 1.35;
+    }
+
+    .wrap {
+      width: min(1080px, calc(100% - 2rem));
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.7rem 0;
+    }
+
+    .header-inner img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand-name {
+      font-size: 1.45rem;
+      color: var(--text-dark);
+      letter-spacing: 0.04em;
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .brand-tag {
+      margin: 0.15rem 0 0;
+      font-size: 0.88rem;
+      color: var(--taupe);
+      letter-spacing: 0.04em;
+    }
+
+    .header-nav {
+      margin-left: auto;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .header-nav a {
+      text-decoration: none;
+      color: var(--sage-deeper);
+      font-size: 0.95rem;
+      padding: 0.35rem 0;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 220px;
+      background: #2c2c2c center/cover no-repeat;
+      background-image: url("images/granite_bakery.jpg");
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(30, 36, 34, 0.45), rgba(30, 36, 34, 0.62));
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #fff;
+      width: min(640px, 100%);
+    }
+
+    .hero-inner img {
+      width: min(420px, 88%);
+      margin: 0 auto 0.85rem;
+    }
+
+    .hero-inner p {
+      margin: 0;
+      font-size: 1.05rem;
+      color: #f6f1ea;
+    }
+
+    main { padding: 1.6rem 0 3rem; }
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      letter-spacing: 0.03em;
+      margin: 0 0 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .lede {
+      margin: 0 0 1.1rem;
+      max-width: 42rem;
+    }
+
+    .quote {
+      margin: 0 0 1.15rem;
+      padding: 0.85rem 1rem;
+      border-left: 3px solid var(--blush);
+      background: #fff;
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.15rem 1rem 1.3rem;
+    }
+
+    @media (min-width: 700px) {
+      .card { padding: 1.5rem 1.6rem 1.7rem; }
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    @media (min-width: 640px) {
+      .two { grid-template-columns: 1fr 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      margin-bottom: 0.28rem;
+    }
+
+    .req { color: #8a4b3a; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      font: inherit;
+      font-size: 16px;
+      color: var(--text-dark);
+      background: #fff;
+      border: 1px solid #cfc4b8;
+      border-radius: 10px;
+      padding: 0.7rem 0.75rem;
+      min-height: 44px;
+    }
+
+    textarea { min-height: 110px; resize: vertical; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--sage-dark);
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: #6b6560;
+      margin: 0.28rem 0 0;
+    }
+
+    .field-error {
+      display: none;
+      color: #7a3328;
+      font-size: 0.88rem;
+      margin: 0.28rem 0 0;
+    }
+
+    .field.invalid input,
+    .field.invalid select,
+    .field.invalid textarea {
+      border-color: #b15a4c;
+    }
+
+    .field.invalid .field-error { display: block; }
+
+    .form-alert {
+      display: none;
+      background: #f8e8e4;
+      border: 1px solid #d7a59c;
+      color: #6b3228;
+      padding: 0.75rem 0.9rem;
+      border-radius: 10px;
+      margin-bottom: 0.9rem;
+    }
+
+    .form-alert.show { display: block; }
+
+    details.lead-guide {
+      margin-top: 0.55rem;
+      background: #f7f3ee;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.92rem;
+    }
+
+    details.lead-guide summary {
+      cursor: pointer;
+      color: var(--sage-deeper);
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+    }
+
+    details.lead-guide ul {
+      margin: 0.4rem 0 0.5rem;
+      padding-left: 1.15rem;
+    }
+
+    details.lead-guide li { margin: 0.15rem 0; }
+
+    .date-warn {
+      display: none;
+      margin-top: 0.5rem;
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: #5c4a32;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+    }
+
+    .date-warn.show { display: block; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.1rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 1rem;
+      border-radius: 999px;
+      min-height: 46px;
+      padding: 0.55rem 1.15rem;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--sage-dark);
+      color: #fff;
+      border-color: var(--sage-dark);
+    }
+
+    .btn-primary:hover { background: var(--sage-deeper); }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--sage-deeper);
+      border-color: var(--sage);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--taupe);
+    }
+
+    .btn-blush {
+      background: var(--blush);
+      color: var(--text-dark);
+      border-color: var(--blush);
+    }
+
+    .btn-small {
+      min-height: 40px;
+      font-size: 0.92rem;
+      padding: 0.35rem 0.9rem;
+    }
+
+    #result {
+      margin-top: 1.75rem;
+      scroll-margin-top: 3.2rem;
+    }
+
+    #result[hidden] { display: none !important; }
+
+    .result-intro {
+      margin-bottom: 1rem;
+    }
+
+    .result-grid {
+      display: grid;
+      gap: 1.1rem;
+      min-width: 0;
+    }
+
+    .result-grid > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    @media (min-width: 960px) {
+      .result-grid {
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: start;
+      }
+    }
+
+    .email-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      max-width: 100%;
+    }
+
+    .email-chrome {
+      background: #ece7e1;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6a635c;
+    }
+
+    .email-meta {
+      padding: 0.9rem 1rem 0.7rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .email-meta p {
+      margin: 0.2rem 0;
+      font-size: 0.95rem;
+      word-break: break-word;
+    }
+
+    .email-meta .subject {
+      font-size: 1.08rem;
+      color: var(--text-dark);
+      margin-top: 0.45rem;
+    }
+
+    .receipt-banner {
+      margin: 0.85rem 1rem 0;
+      background: var(--ok-bg);
+      border: 1px solid #b7cdc7;
+      color: var(--sage-deeper);
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .email-body { padding: 0.9rem 1rem 1.1rem; }
+
+    .email-body p { margin: 0.45rem 0; }
+
+    .detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.8rem 0;
+      font-size: 0.95rem;
+    }
+
+    .detail-table th,
+    .detail-table td {
+      text-align: left;
+      padding: 0.4rem 0.5rem 0.4rem 0;
+      border-bottom: 1px solid #eee6de;
+      vertical-align: top;
+    }
+
+    .detail-table th {
+      color: var(--sage-deeper);
+      font-weight: 400;
+      width: 38%;
+    }
+
+    .next-steps {
+      margin: 0.4rem 0 0.2rem;
+      padding-left: 1.2rem;
+    }
+
+    .next-steps li { margin: 0.4rem 0; }
+
+    .disclaimer {
+      font-size: 0.92rem;
+      color: #5e5852;
+      background: #f7f3ee;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+    }
+
+    .late-note {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      margin: 0.75rem 0;
+    }
+
+    .email-foot {
+      border-top: 1px solid var(--line);
+      padding: 0.85rem 1rem 1rem;
+      font-size: 0.9rem;
+      color: #5e5852;
+    }
+
+    .email-foot p { margin: 0.15rem 0; }
+
+    .bakery-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .notify {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      background: #eef4f2;
+      border: 1px solid #c5d7d2;
+      border-radius: 10px;
+      padding: 0.75rem 0.8rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .notify-dot {
+      width: 10px;
+      height: 10px;
+      margin-top: 0.45rem;
+      border-radius: 50%;
+      background: var(--sage-dark);
+      flex-shrink: 0;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid #d5ddd9;
+      border-radius: 8px;
+      max-width: 100%;
+    }
+
+    .sheet {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .sheet th {
+      background: var(--sage-dark);
+      color: #fff;
+      text-align: left;
+      padding: 0.45rem 0.5rem;
+      font-weight: 400;
+    }
+
+    .sheet td {
+      padding: 0.45rem 0.5rem;
+      border-bottom: 1px solid #e6ebe9;
+      vertical-align: top;
+    }
+
+    .sheet tr.sample td { color: #6b6560; background: #fafafa; }
+
+    .sheet tr.new-row td { background: #fff6e8; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: #ece7e1;
+      color: #5e5852;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      margin-left: 0.25rem;
+    }
+
+    .status-new { color: #7a4e1d; }
+    .status-done { color: var(--sage-deeper); }
+
+    .sheet-actions { margin-top: 0.75rem; }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    #how-it-works {
+      margin-top: 2.4rem;
+      scroll-margin-top: 3.2rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.1rem 0 1.3rem;
+    }
+
+    @media (min-width: 720px) {
+      .steps { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .step {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem 0.95rem;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      margin: 0 auto 0.5rem;
+      border-radius: 50%;
+      background: var(--sage-dark);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+    }
+
+    .step p { margin: 0; font-size: 0.98rem; }
+
+    .bullets {
+      margin: 0.4rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .bullets li { margin: 0.4rem 0; }
+
+    .estimate {
+      background: #fff;
+      border: 1px dashed var(--taupe);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+      margin: 1rem 0 0;
+      font-size: 0.95rem;
+    }
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.45rem;
+      margin-top: 1.2rem;
+    }
+
+    .photos img {
+      width: 100%;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 520px) {
+      .photos { grid-template-columns: repeat(2, 1fr); }
+      .header-nav { display: none; }
+    }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      padding: 1.4rem 0 1.8rem;
+      font-size: 0.95rem;
+    }
+
+    footer h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .fineprint {
+      margin-top: 0.9rem;
+      color: #6b6560;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">
+    DEMO / MOCKUP — prepared for Granite Bakery. Nothing is sent; no real email or order is created.
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <img src="images/logo.png" width="52" height="52" alt="Granite Bakery logo" />
+      <div>
+        <p class="brand-name">Granite Bakery</p>
+        <p class="brand-tag">Family owned · Salt Lake City · since 1983</p>
+      </div>
+      <nav class="header-nav" aria-label="Page">
+        <a href="#order">Custom order</a>
+        <a href="#how-it-works">How this would work</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Bakery welcome">
+    <div class="hero-inner">
+      <img src="images/logo_banner.png" alt="Granite Bakery" />
+      <p>We are a family owned retail bakery. Sweet treats galore!</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="wrap">
+      <section id="order" aria-labelledby="order-heading">
+        <h2 id="order-heading">Custom Order Request</h2>
+        <p class="lede">
+          Here at Granite Bakery we create custom celebration cakes, pies, rolls, breakfast pastries, desserts, custom sugar cookies, and more.
+          This page shows what an automatic “we got your request” confirmation would feel like.
+        </p>
+        <blockquote class="quote">
+          Today the site says: “Send an email with order details. Follow up your email with a phone call to be sure it was received.”
+          The request form adds: “If you don’t get a response, please call.” This mockup removes that call-to-check.
+        </blockquote>
+
+        <form id="order-form" class="card" novalidate>
+          <div id="form-alert" class="form-alert" role="alert"></div>
+
+          <div class="form-grid two">
+            <div class="field" id="field-first">
+              <label for="first-name">First name <span class="req">*</span></label>
+              <input id="first-name" name="first" type="text" autocomplete="given-name" required />
+              <p class="field-error" id="err-first">Please enter a first name.</p>
+            </div>
+            <div class="field" id="field-last">
+              <label for="last-name">Last name <span class="req">*</span></label>
+              <input id="last-name" name="last" type="text" autocomplete="family-name" required />
+              <p class="field-error" id="err-last">Please enter a last name.</p>
+            </div>
+          </div>
+
+          <div class="form-grid two" style="margin-top:0.9rem">
+            <div class="field" id="field-email">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+              <p class="field-error" id="err-email">Please enter a valid email address.</p>
+            </div>
+            <div class="field" id="field-phone">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+              <p class="field-error" id="err-phone">Please enter a phone number.</p>
+            </div>
+          </div>
+
+          <div class="form-grid" style="margin-top:0.9rem">
+            <div class="field" id="field-type">
+              <label for="order-type">Order type <span class="req">*</span></label>
+              <select id="order-type" name="type" required>
+                <option value="">Select an order type</option>
+                <option>Custom / Party Cake</option>
+                <option>Cupcakes</option>
+                <option>Custom Sugar Cookies</option>
+                <option>Bakery Items (Cinnamon Knots, Pies, Rolls, etc.)</option>
+                <option>Other</option>
+              </select>
+              <p class="field-error" id="err-type">Please choose an order type.</p>
+            </div>
+
+            <div class="field" id="field-item">
+              <label for="item">Item / description <span class="req">*</span></label>
+              <input id="item" name="item" type="text" required placeholder="Birthday cake, cinnamon knots, floral cookies…" />
+              <p class="field-error" id="err-item">Please describe the item.</p>
+            </div>
+
+            <div class="field" id="field-qty">
+              <label for="qty">Quantity / size <span class="req">*</span></label>
+              <input id="qty" name="qty" type="text" required placeholder="2 dozen or 8 inch double" />
+              <p class="field-error" id="err-qty">Please enter a quantity or size.</p>
+            </div>
+          </div>
+
+          <div class="form-grid two" style="margin-top:0.9rem">
+            <div class="field" id="field-date">
+              <label for="needed">Date needed (pickup) <span class="req">*</span></label>
+              <input id="needed" name="needed" type="date" required aria-describedby="pickup-note date-warning lead-guide" />
+              <p class="hint" id="pickup-note">Pickup Date (Tuesday thru Saturday). The bakery is closed on Sunday and Monday each week.</p>
+              <p class="field-error" id="err-date">Please choose a pickup date.</p>
+              <p class="date-warn" id="date-warning" role="status"></p>
+              <details class="lead-guide" id="lead-guide">
+                <summary>How early? Lead-time guide</summary>
+                <ul>
+                  <li>Simple Cake, 3 days notice</li>
+                  <li>Custom Sugar Cookies, 3 days notice</li>
+                  <li>Baked Items, 2 days notice</li>
+                  <li>Custom Cake, 2 weeks notice</li>
+                  <li>Large catering order, 4 days notice</li>
+                  <li>Delivery order, 1 week notice</li>
+                </ul>
+              </details>
+            </div>
+            <div class="field">
+              <label for="pickup-time">Pickup time (optional)</label>
+              <input id="pickup-time" name="pickupTime" type="time" />
+              <p class="hint">Leave blank if you are not sure yet.</p>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:0.9rem">
+            <label for="details">Details</label>
+            <textarea id="details" name="details" placeholder="Flavors, colors, writing on the cake, photo ideas…"></textarea>
+            <p class="hint">Cakes often include size, flavor, filling, icing, decoration style, and text to write on the cake.</p>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn-blush" id="fill-sample">Fill sample order</button>
+            <button type="submit" class="btn-primary" id="submit-order">Submit request</button>
+            <button type="button" class="btn-ghost" id="reset-demo">Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="result" hidden aria-live="polite" aria-atomic="false">
+        <div class="result-intro">
+          <h2>Instant confirmation (simulated)</h2>
+          <p class="lede">This is a preview of the receipt email and the bakery’s request list. Nothing was sent.</p>
+        </div>
+        <div class="result-grid">
+          <div id="email-preview"></div>
+          <div id="bakery-view"></div>
+        </div>
+        <div class="result-actions">
+          <button type="button" class="btn-secondary" id="edit-order">Edit request</button>
+          <button type="button" class="btn-ghost" id="new-order">Start a new request</button>
+        </div>
+      </section>
+
+      <section id="how-it-works">
+        <h2>How this would work for you</h2>
+        <p class="lede">
+          Customers get an instant receipt with their details, so there are no “did you get my email?” calls and no requests lost in an inbox.
+          Every request lands in one list with a status. Staff answer with a quote when ready, same as today.
+        </p>
+
+        <div class="steps" aria-label="Three-step flow">
+          <div class="step">
+            <div class="step-num" aria-hidden="true">1</div>
+            <h3>Customer fills form</h3>
+            <p>Name, item, date, and details — the same information you already ask for.</p>
+          </div>
+          <div class="step">
+            <div class="step-num" aria-hidden="true">2</div>
+            <h3>Instant confirmation email</h3>
+            <p>They receive a receipt of what they sent. No call to check that it arrived.</p>
+          </div>
+          <div class="step">
+            <div class="step-num" aria-hidden="true">3</div>
+            <h3>Bakery reviews &amp; sends quote</h3>
+            <p>Staff still approve the request and reply when ready, as you do now.</p>
+          </div>
+        </div>
+
+        <h3>What Kellan would set up with real tools</h3>
+        <ul class="bullets">
+          <li>Your existing online order forms already run on Jotform — turn on an autoresponder email with the customer’s answers and the next steps (a site form or Google Form can do the same).</li>
+          <li>Zapier or Make adds each request to a Google Sheet and pings staff when a new row appears.</li>
+          <li>Staff still reply from Gmail after they review the request. The automatic note is only the receipt.</li>
+          <li>This sits beside your existing SimplyBook bridal consultation booking, which stays unchanged.</li>
+        </ul>
+        <p class="estimate">
+          <strong>Estimate:</strong> a few minutes saved per order that would have needed a check-in call, plus fewer “did you get my email?” interruptions during bakery hours. This is a general estimate, not a measured result.
+        </p>
+
+        <div class="photos" aria-hidden="true">
+          <img src="images/cake_card.jpg" alt="" />
+          <img src="images/cupcakes_card.jpg" alt="" />
+          <img src="images/sugar_cookies_card.jpg" alt="" />
+          <img src="images/knots_card.jpg" alt="" />
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <h2>Granite Bakery</h2>
+      <p>902 E. 2700 S., Salt Lake City, UT 84106</p>
+      <p>Phone: <a href="tel:+1-801-467-7291">(801) 467-7291</a></p>
+      <p>Email: <a href="mailto:sweettreats@granitebakery.com">sweettreats@granitebakery.com</a></p>
+      <p>Bakery hours: Tue–Fri 7:00 am – 6:00 pm · Saturday 7:00 am – 5:00 pm</p>
+      <p>Closed Sunday and Monday.</p>
+      <p class="fineprint">Demo mockup — not affiliated with an active order system. No data leaves this page.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var form = document.getElementById("order-form");
+      var result = document.getElementById("result");
+      var emailPreview = document.getElementById("email-preview");
+      var bakeryView = document.getElementById("bakery-view");
+      var formAlert = document.getElementById("form-alert");
+      var dateWarning = document.getElementById("date-warning");
+      var neededInput = document.getElementById("needed");
+      var lastRef = "";
+
+      var fields = {
+        first: document.getElementById("first-name"),
+        last: document.getElementById("last-name"),
+        email: document.getElementById("email"),
+        phone: document.getElementById("phone"),
+        type: document.getElementById("order-type"),
+        item: document.getElementById("item"),
+        qty: document.getElementById("qty"),
+        needed: neededInput,
+        pickupTime: document.getElementById("pickup-time"),
+        details: document.getElementById("details")
+      };
+
+      function escapeHtml(value) {
+        return String(value == null ? "" : value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function parseLocalDate(iso) {
+        var parts = String(iso).split("-").map(Number);
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+      }
+
+      function pad(n) {
+        return String(n).padStart(2, "0");
+      }
+
+      function toIsoLocal(d) {
+        return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+      }
+
+      function startOfToday() {
+        var n = new Date();
+        return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+      }
+
+      function daysUntil(iso) {
+        var target = parseLocalDate(iso);
+        return Math.round((target - startOfToday()) / 86400000);
+      }
+
+      function formatNiceDate(iso) {
+        return parseLocalDate(iso).toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+      }
+
+      function formatShortDate(d) {
+        return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      }
+
+      function formatTime(t) {
+        if (!t) return "Not specified";
+        var bits = t.split(":");
+        var h = Number(bits[0]);
+        var m = Number(bits[1]);
+        var ampm = h >= 12 ? "pm" : "am";
+        var h12 = ((h + 11) % 12) + 1;
+        return h12 + ":" + pad(m) + " " + ampm;
+      }
+
+      function bakeryNowParts() {
+        var now = new Date();
+        var parts = new Intl.DateTimeFormat("en-US", {
+          timeZone: "America/Denver",
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23"
+        }).formatToParts(now);
+        var map = {};
+        parts.forEach(function (p) { map[p.type] = p.value; });
+        var hour = Number(map.hour);
+        var minute = Number(map.minute);
+        var weekday = map.weekday;
+        var closed = weekday === "Sunday" || weekday === "Monday";
+        var before3 = hour < 15;
+        var display = weekday + ", " + map.month + " " + Number(map.day) + ", " + map.year +
+          " · " + formatTime(pad(hour) + ":" + pad(minute)) + " MT";
+        return { hour: hour, minute: minute, weekday: weekday, closed: closed, before3: before3, display: display };
+      }
+
+      function samplePickupDate() {
+        var d = startOfToday();
+        d.setDate(d.getDate() + 18);
+        while (d.getDay() === 0 || d.getDay() === 1) {
+          d.setDate(d.getDate() + 1);
+        }
+        return toIsoLocal(d);
+      }
+
+      function leadGuideFor(type) {
+        if (type === "Custom / Party Cake") {
+          return { days: 14, quote: "Custom Cake, 2 weeks notice" };
+        }
+        if (type.indexOf("Bakery Items") === 0) {
+          return { days: 2, quote: "Baked Items, 2 days notice" };
+        }
+        if (type === "Custom Sugar Cookies") {
+          return { days: 3, quote: "Custom Sugar Cookies, 3 days notice" };
+        }
+        return { days: 3, quote: "We require at least 3 days advance notice for online orders." };
+      }
+
+      function makeRef(iso) {
+        var n = String(Math.floor(1000 + Math.random() * 9000));
+        return "GB-" + iso.replace(/-/g, "") + "-" + n;
+      }
+
+      function clearErrors() {
+        formAlert.classList.remove("show");
+        formAlert.textContent = "";
+        Object.keys(fields).forEach(function (key) {
+          var el = fields[key].closest(".field");
+          if (el) el.classList.remove("invalid");
+        });
+      }
+
+      function showFieldError(input) {
+        var el = input.closest(".field");
+        if (el) el.classList.add("invalid");
+      }
+
+      function isEmail(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      function checkClosedDay() {
+        var iso = neededInput.value;
+        if (!iso) {
+          dateWarning.classList.remove("show");
+          dateWarning.textContent = "";
+          return;
+        }
+        var day = parseLocalDate(iso).getDay();
+        if (day === 0 || day === 1) {
+          dateWarning.textContent = "The bakery is closed on Sunday and Monday each week. Pickup is Tuesday thru Saturday. You can still send this request.";
+          dateWarning.classList.add("show");
+        } else {
+          dateWarning.classList.remove("show");
+          dateWarning.textContent = "";
+        }
+      }
+
+      function readForm() {
+        return {
+          first: fields.first.value.trim(),
+          last: fields.last.value.trim(),
+          email: fields.email.value.trim(),
+          phone: fields.phone.value.trim(),
+          type: fields.type.value,
+          item: fields.item.value.trim(),
+          qty: fields.qty.value.trim(),
+          needed: fields.needed.value,
+          pickupTime: fields.pickupTime.value,
+          details: fields.details.value.trim()
+        };
+      }
+
+      function validate() {
+        clearErrors();
+        var data = readForm();
+        var missing = [];
+        if (!data.first) { showFieldError(fields.first); missing.push("first name"); }
+        if (!data.last) { showFieldError(fields.last); missing.push("last name"); }
+        if (!data.email || !isEmail(data.email)) { showFieldError(fields.email); missing.push("email"); }
+        if (!data.phone) { showFieldError(fields.phone); missing.push("phone"); }
+        if (!data.type) { showFieldError(fields.type); missing.push("order type"); }
+        if (!data.item) { showFieldError(fields.item); missing.push("item / description"); }
+        if (!data.qty) { showFieldError(fields.qty); missing.push("quantity / size"); }
+        if (!data.needed) { showFieldError(fields.needed); missing.push("date needed"); }
+        if (missing.length) {
+          formAlert.textContent = "Please complete: " + missing.join(", ") + ".";
+          formAlert.classList.add("show");
+          var firstInvalid = form.querySelector(".field.invalid input, .field.invalid select");
+          if (firstInvalid) firstInvalid.focus();
+          return null;
+        }
+        return data;
+      }
+
+      function responseCopy(now) {
+        var timing;
+        if (now.closed) {
+          timing = "Today is " + now.weekday + " in Salt Lake City. The bakery is closed on Sunday and Monday each week. (expect longer response time these days).";
+        } else if (now.before3) {
+          timing = "This request arrived prior to 3pm Mountain Time, so the same-day response guideline applies.";
+        } else {
+          timing = "This request arrived after 3pm Mountain Time, so the next-day response guideline applies.";
+        }
+        return timing;
+      }
+
+      function renderEmail(data, ref, now) {
+        var detailsHtml = data.details
+          ? escapeHtml(data.details).replace(/\n/g, "<br>")
+          : "None";
+        var lead = leadGuideFor(data.type);
+        var until = daysUntil(data.needed);
+        var lateNote = "";
+        if (until < lead.days) {
+          lateNote =
+            '<div class="late-note"><strong>About timing:</strong> Your pickup date is ' +
+            until + (until === 1 ? " day" : " days") +
+            " from today. Our guide says “" + escapeHtml(lead.quote) +
+            "”. Late or last minute requests cannot always be accomodated.</div>";
+        }
+
+        emailPreview.innerHTML =
+          '<article class="email-card" aria-label="Simulated confirmation email">' +
+            '<div class="email-chrome">Inbox preview · not sent</div>' +
+            '<div class="email-meta">' +
+              "<p><strong>From:</strong> Granite Bakery &lt;sweettreats@granitebakery.com&gt;</p>" +
+              "<p><strong>To:</strong> " + escapeHtml(data.email) + "</p>" +
+              '<p class="subject"><strong>Subject:</strong> We got your order request, ' +
+                escapeHtml(data.first) + "! — Granite Bakery</p>" +
+              "<p><strong>Sent:</strong> " + escapeHtml(now.display) + "</p>" +
+            "</div>" +
+            '<p class="receipt-banner">No need to call to check — this email is your receipt.</p>' +
+            '<div class="email-body">' +
+              "<p>Hi " + escapeHtml(data.first) + ",</p>" +
+              "<p>We received your custom order request. Thank you for thinking of Granite Bakery.</p>" +
+              "<p><strong>Request reference:</strong> " + escapeHtml(ref) + "</p>" +
+              '<table class="detail-table">' +
+                "<tr><th>Name</th><td>" + escapeHtml(data.first + " " + data.last) + "</td></tr>" +
+                "<tr><th>Phone</th><td>" + escapeHtml(data.phone) + "</td></tr>" +
+                "<tr><th>Email</th><td>" + escapeHtml(data.email) + "</td></tr>" +
+                "<tr><th>Order type</th><td>" + escapeHtml(data.type) + "</td></tr>" +
+                "<tr><th>Item</th><td>" + escapeHtml(data.item) + "</td></tr>" +
+                "<tr><th>Quantity / size</th><td>" + escapeHtml(data.qty) + "</td></tr>" +
+                "<tr><th>Date needed</th><td>" + escapeHtml(formatNiceDate(data.needed)) + "</td></tr>" +
+                "<tr><th>Pickup time</th><td>" + escapeHtml(formatTime(data.pickupTime)) + "</td></tr>" +
+                "<tr><th>Details</th><td>" + detailsHtml + "</td></tr>" +
+              "</table>" +
+              lateNote +
+              "<h3>What happens next</h3>" +
+              '<ol class="next-steps">' +
+                "<li>Bakery staff will review your request. “This request requires bakery approval.”</li>" +
+                "<li>“Requests received prior to 3pm will receive same-day response. After 3pm, response will be next day.” " +
+                  escapeHtml(responseCopy(now)) +
+                  (now.closed ? "" : " The bakery is closed on Sunday and Monday each week. (expect longer response time these days).") +
+                "</li>" +
+                "<li>“As part of a finalized order, you will receive an email confirmation and price quote.”</li>" +
+                "<li>“Need to submit a photo? Send it to our email address with your name and pickup date.” A reply to this email works.</li>" +
+              "</ol>" +
+              '<p class="disclaimer">This is a request form only, and does not guarantee order status or availability.</p>' +
+            "</div>" +
+            '<div class="email-foot">' +
+              "<p>Granite Bakery</p>" +
+              "<p>902 E. 2700 S., Salt Lake City, UT 84106</p>" +
+              '<p><a href="tel:+1-801-467-7291">(801) 467-7291</a></p>' +
+              "<p>Tue–Fri 7:00 am – 6:00 pm · Saturday 7:00 am – 5:00 pm</p>" +
+            "</div>" +
+          "</article>";
+      }
+
+      function renderBakery(data, ref, now) {
+        var yesterday = startOfToday();
+        yesterday.setDate(yesterday.getDate() - 1);
+        var twoAgo = startOfToday();
+        twoAgo.setDate(twoAgo.getDate() - 2);
+        var sampleNeeded1 = startOfToday();
+        sampleNeeded1.setDate(sampleNeeded1.getDate() + 5);
+        while (sampleNeeded1.getDay() === 0 || sampleNeeded1.getDay() === 1) {
+          sampleNeeded1.setDate(sampleNeeded1.getDate() + 1);
+        }
+        var sampleNeeded2 = startOfToday();
+        sampleNeeded2.setDate(sampleNeeded2.getDate() + 8);
+        while (sampleNeeded2.getDay() === 0 || sampleNeeded2.getDay() === 1) {
+          sampleNeeded2.setDate(sampleNeeded2.getDate() + 1);
+        }
+
+        bakeryView.innerHTML =
+          '<div class="bakery-card">' +
+            "<h3>What the bakery sees</h3>" +
+            '<div class="notify">' +
+              '<span class="notify-dot" aria-hidden="true"></span>' +
+              "<p><strong>Staff notification:</strong> New order request from " +
+                escapeHtml(data.first + " " + data.last) + " — needed " +
+                escapeHtml(formatNiceDate(data.needed)) + "</p>" +
+            "</div>" +
+            "<p>Order requests</p>" +
+            '<div class="table-scroll">' +
+              '<table class="sheet">' +
+                "<thead><tr>" +
+                  "<th>Received</th><th>Ref</th><th>Customer</th><th>Type</th>" +
+                  "<th>Item</th><th>Qty/size</th><th>Needed</th><th>Status</th>" +
+                "</tr></thead>" +
+                "<tbody>" +
+                  '<tr class="sample">' +
+                    "<td>" + escapeHtml(formatShortDate(twoAgo)) + ' <span class="badge">Sample</span></td>' +
+                    "<td>GB-" + toIsoLocal(twoAgo).replace(/-/g, "") + "-1042</td>" +
+                    "<td>Riley Sample</td>" +
+                    "<td>Cupcakes</td>" +
+                    "<td>Vanilla cupcakes</td>" +
+                    "<td>2 dozen</td>" +
+                    "<td>" + escapeHtml(formatShortDate(sampleNeeded2)) + "</td>" +
+                    "<td>Reviewed — quote sent</td>" +
+                  "</tr>" +
+                  '<tr class="sample">' +
+                    "<td>" + escapeHtml(formatShortDate(yesterday)) + ' <span class="badge">Sample</span></td>' +
+                    "<td>GB-" + toIsoLocal(yesterday).replace(/-/g, "") + "-2218</td>" +
+                    "<td>Casey Demo</td>" +
+                    "<td>Custom Sugar Cookies</td>" +
+                    "<td>Floral cookies</td>" +
+                    "<td>1 dozen</td>" +
+                    "<td>" + escapeHtml(formatShortDate(sampleNeeded1)) + "</td>" +
+                    "<td>Reviewed — quote sent</td>" +
+                  "</tr>" +
+                  '<tr class="new-row">' +
+                    "<td>" + escapeHtml(now.display) + "</td>" +
+                    "<td>" + escapeHtml(ref) + "</td>" +
+                    "<td>" + escapeHtml(data.first + " " + data.last) + "</td>" +
+                    "<td>" + escapeHtml(data.type) + "</td>" +
+                    "<td>" + escapeHtml(data.item) + "</td>" +
+                    "<td>" + escapeHtml(data.qty) + "</td>" +
+                    "<td>" + escapeHtml(formatNiceDate(data.needed)) + "</td>" +
+                    '<td id="new-status" class="status-new" data-reviewed="0">New — needs review</td>' +
+                  "</tr>" +
+                "</tbody>" +
+              "</table>" +
+            "</div>" +
+            '<div class="sheet-actions">' +
+              '<button type="button" class="btn-secondary btn-small" id="mark-reviewed">Mark as reviewed</button>' +
+            "</div>" +
+          "</div>";
+
+        document.getElementById("mark-reviewed").addEventListener("click", function () {
+          var cell = document.getElementById("new-status");
+          var btn = document.getElementById("mark-reviewed");
+          var reviewed = cell.getAttribute("data-reviewed") === "1";
+          if (reviewed) {
+            cell.setAttribute("data-reviewed", "0");
+            cell.textContent = "New — needs review";
+            cell.className = "status-new";
+            btn.textContent = "Mark as reviewed";
+          } else {
+            cell.setAttribute("data-reviewed", "1");
+            cell.textContent = "Reviewed — quote sent";
+            cell.className = "status-done";
+            btn.textContent = "Mark as new";
+          }
+        });
+      }
+
+      function submitOrder() {
+        var data = validate();
+        if (!data) return;
+        lastRef = makeRef(toIsoLocal(new Date()));
+        var now = bakeryNowParts();
+        renderEmail(data, lastRef, now);
+        renderBakery(data, lastRef, now);
+        result.hidden = false;
+        result.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function fillSample() {
+        fields.first.value = "Jamie";
+        fields.last.value = "Example";
+        fields.email.value = "jamie@example.com";
+        fields.phone.value = "(801) 555-0134";
+        fields.type.value = "Custom / Party Cake";
+        fields.item.value = "Birthday cake";
+        fields.qty.value = "8 inch Double";
+        fields.needed.value = samplePickupDate();
+        fields.pickupTime.value = "10:00";
+        fields.details.value = "Vanilla cake, chocolate filling, buttercream icing. Soft pink and cream flowers. Please write Happy Birthday Sam on the cake.";
+        clearErrors();
+        checkClosedDay();
+        fields.first.focus();
+      }
+
+      function resetDemo() {
+        form.reset();
+        clearErrors();
+        checkClosedDay();
+        result.hidden = true;
+        emailPreview.innerHTML = "";
+        bakeryView.innerHTML = "";
+        lastRef = "";
+      }
+
+      neededInput.addEventListener("change", checkClosedDay);
+      neededInput.addEventListener("input", checkClosedDay);
+
+      document.getElementById("fill-sample").addEventListener("click", fillSample);
+      document.getElementById("reset-demo").addEventListener("click", function () {
+        resetDemo();
+        fields.first.focus();
+      });
+      document.getElementById("edit-order").addEventListener("click", function () {
+        document.getElementById("order").scrollIntoView({ behavior: "smooth", block: "start" });
+        fields.first.focus();
+      });
+      document.getElementById("new-order").addEventListener("click", function () {
+        resetDemo();
+        document.getElementById("order").scrollIntoView({ behavior: "smooth", block: "start" });
+        fields.first.focus();
+      });
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        submitOrder();
+      });
+    })();
+  </script>
+</body>
+</html>
